@@ -21,4 +21,23 @@ export const updatePatient = (id, data) =>
 export const deletePatient = (id) =>
   api.delete(`/patients/${id}`)
 
+// ── Agendamentos ───────────────────────────────────────
+export const getAppointments = (filters = {}) =>
+  api.get('/appointments/', { params: filters })
+
+export const getAppointment = (id) =>
+  api.get(`/appointments/${id}`)
+
+export const createAppointment = (data) =>
+  api.post('/appointments/', data)
+
+export const updateAppointment = (id, data) =>
+  api.put(`/appointments/${id}`, data)
+
+export const deleteAppointment = (id) =>
+  api.delete(`/appointments/${id}`)
+
+export const checkAppointmentConflict = (params) =>
+  api.get('/appointments/check-conflict', { params })
+
 export default api

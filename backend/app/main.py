@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 from app.routers.patients import router as patients_router
+from app.routers.appointments import router as appointments_router
 import app.models  # noqa: F401 — garante que os models são registrados
 
 Base.metadata.create_all(bind=engine)
@@ -21,6 +22,7 @@ app.add_middleware(
 )
 
 app.include_router(patients_router, prefix="/api")
+app.include_router(appointments_router, prefix="/api")
 
 @app.get("/")
 def root():

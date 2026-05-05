@@ -3,6 +3,8 @@ import { Toaster } from 'react-hot-toast'
 import Sidebar from './components/Sidebar'
 import Patients from './pages/Patients'
 import PatientForm from './pages/PatientForm'
+import Appointments from './pages/Appointments'
+import AppointmentForm from './pages/AppointmentForm'
 
 export default function App() {
   return (
@@ -16,8 +18,10 @@ export default function App() {
             <Route path="/patients" element={<Patients />} />
             <Route path="/patients/new" element={<PatientForm />} />
             <Route path="/patients/:id/edit" element={<PatientForm />} />
-            {/* Rotas futuras (AC2, AC3, Prova) */}
-            <Route path="/appointments" element={<ComingSoon title="Agendamentos" />} />
+            <Route path="/appointments" element={<Appointments />} />
+            <Route path="/appointments/new" element={<AppointmentForm />} />
+            <Route path="/appointments/:id/edit" element={<AppointmentForm />} />
+            {/* Rotas futuras (AC3, Prova) */}
             <Route path="/records"      element={<ComingSoon title="Prontuários" />} />
             <Route path="/financial"    element={<ComingSoon title="Financeiro" />} />
           </Routes>
@@ -33,7 +37,7 @@ function ComingSoon({ title }) {
       <div>
         <p className="text-5xl mb-4">🚧</p>
         <h2 className="text-xl font-bold text-gray-700">{title}</h2>
-        <p className="text-gray-400 mt-2 text-sm">Funcionalidade em desenvolvimento — AC2/AC3</p>
+        <p className="text-gray-400 mt-2 text-sm">Funcionalidade em desenvolvimento — AC3/Prova</p>
       </div>
     </div>
   )

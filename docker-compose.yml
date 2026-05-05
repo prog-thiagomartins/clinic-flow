@@ -25,7 +25,7 @@ services:
     environment:
       DATABASE_URL: postgresql://clinicflow:clinicflow@db:5432/clinicflow
     ports:
-      - "8000:8000"
+      - "8001:8000"
     volumes:
       - ./backend:/app
     depends_on:
@@ -37,7 +37,7 @@ services:
     build: ./frontend
     container_name: clinicflow_frontend
     ports:
-      - "5173:5173"
+      - "5174:5173"
     volumes:
       - ./frontend:/app
       - /app/node_modules

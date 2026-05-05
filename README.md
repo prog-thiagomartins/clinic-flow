@@ -20,9 +20,9 @@ Aguarde todos os serviços subirem. Depois acesse:
 
 | Serviço   | URL                          |
 |-----------|------------------------------|
-| Frontend  | http://localhost:5173        |
-| API Docs  | http://localhost:8000/docs   |
-| Backend   | http://localhost:8000        |
+| Frontend  | http://localhost:5174        |
+| API Docs  | http://localhost:8001/docs   |
+| Backend   | http://localhost:8001        |
 
 ---
 
@@ -32,7 +32,7 @@ Aguarde todos os serviços subirem. Depois acesse:
 |---------|-----------------------------|--------|
 | AC1     | Cadastro de Pacientes (CRUD)| ✅ Pronto |
 | AC2     | Agendamento de Consultas    | ✅ Pronto |
-| AC3     | Prontuário / Histórico      | 🚧 Em breve |
+| AC3     | Prontuário / Histórico      | ✅ Pronto |
 | Prova   | Financeiro / Pagamentos     | 🚧 Em breve |
 
 ---
@@ -63,3 +63,16 @@ Aguarde todos os serviços subirem. Depois acesse:
 **Status possíveis:** `agendado`, `realizado`, `cancelado`.
 
 **Conflito de horário:** o endpoint `check-conflict` é informativo — o frontend exibe um aviso amarelo, mas o usuário pode salvar mesmo assim.
+
+### AC3 — Prontuários
+
+| Método | Rota                                             | Descrição                              |
+|--------|--------------------------------------------------|----------------------------------------|
+| GET    | /api/medical-records/                            | Listar prontuários (filtros `?patient_id=`, `?appointment_id=`) |
+| GET    | /api/medical-records/{id}                        | Buscar prontuário por ID               |
+| GET    | /api/medical-records/by-appointment/{id}         | Buscar prontuário pela consulta        |
+| POST   | /api/medical-records/                            | Criar prontuário (1 por consulta)      |
+| PUT    | /api/medical-records/{id}                        | Atualizar prontuário                   |
+| DELETE | /api/medical-records/{id}                        | Remover prontuário                     |
+
+**Modelo:** cada prontuário é vinculado a uma consulta (relação 1:1). Campos clínicos: `chief_complaint` (queixa), `evolution`, `diagnosis` (hipótese), `treatment` (conduta), `prescription`. A queixa é obrigatória; os demais são opcionais.

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Pencil, Trash2, Calendar, Clock, User, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Plus, Pencil, Trash2, Calendar, Clock, User, ChevronLeft, ChevronRight, FileText } from 'lucide-react'
 import { getAppointments, deleteAppointment } from '../services/api'
 import toast from 'react-hot-toast'
 import dayjs from 'dayjs'
@@ -178,14 +178,23 @@ export default function Appointments() {
                 {/* Ações */}
                 <div className="flex items-center gap-1 flex-shrink-0">
                   <Link
+                    to={`/records/new?appointment_id=${a.id}`}
+                    className="p-2 rounded-lg hover:bg-emerald-50 text-gray-400 hover:text-emerald-600 transition-colors"
+                    title="Prontuário"
+                  >
+                    <FileText className="w-4 h-4" />
+                  </Link>
+                  <Link
                     to={`/appointments/${a.id}/edit`}
                     className="p-2 rounded-lg hover:bg-blue-50 text-gray-400 hover:text-blue-600 transition-colors"
+                    title="Editar"
                   >
                     <Pencil className="w-4 h-4" />
                   </Link>
                   <button
                     onClick={() => handleDelete(a)}
                     className="p-2 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors"
+                    title="Remover"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>

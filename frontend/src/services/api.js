@@ -40,4 +40,23 @@ export const deleteAppointment = (id) =>
 export const checkAppointmentConflict = (params) =>
   api.get('/appointments/check-conflict', { params })
 
+// ── Prontuários ────────────────────────────────────────
+export const getMedicalRecords = (filters = {}) =>
+  api.get('/medical-records/', { params: filters })
+
+export const getMedicalRecord = (id) =>
+  api.get(`/medical-records/${id}`)
+
+export const getMedicalRecordByAppointment = (appointmentId) =>
+  api.get(`/medical-records/by-appointment/${appointmentId}`)
+
+export const createMedicalRecord = (data) =>
+  api.post('/medical-records/', data)
+
+export const updateMedicalRecord = (id, data) =>
+  api.put(`/medical-records/${id}`, data)
+
+export const deleteMedicalRecord = (id) =>
+  api.delete(`/medical-records/${id}`)
+
 export default api

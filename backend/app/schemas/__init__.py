@@ -5,3 +5,8 @@ from app.schemas.medical_record import (
     MedicalRecordUpdate,
     MedicalRecordResponse,
 )
+from app.schemas.payment import (
+    PaymentCreate,
+    PaymentUpdate,
+    PaymentResponse,
+)

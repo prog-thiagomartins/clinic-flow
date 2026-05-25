@@ -20,3 +20,16 @@ def _create_appointment(client):
 def test_payment_model_importavel():
     from app.models.payment import Payment
     assert Payment.__tablename__ == "payments"
+
+
+def test_payment_schema_rejeita_valor_zero():
+    import pytest
+    from pydantic import ValidationError
+    from app.schemas.payment import PaymentCreate
+
+    with pytest.raises(ValidationError):
+        PaymentCreate(appointment_id=1, amount=0)
+
+    ok = PaymentCreate(appointment_id=1, amount=150.0)
+    assert ok.status == "pendente"
+    assert ok.method is None

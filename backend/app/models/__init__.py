@@ -1,3 +1,4 @@
 from app.models.patient import Patient
 from app.models.appointment import Appointment
 from app.models.medical_record import MedicalRecord
+from app.models.payment import Payment

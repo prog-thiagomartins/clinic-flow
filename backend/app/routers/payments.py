@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session, joinedload
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, date, time
 from app.database import get_db
 from app.models.payment import Payment
 from app.models.appointment import Appointment
@@ -42,6 +42,31 @@ def list_payments(
         .limit(limit)
         .all()
     )
+
+
+@router.get("/summary")
+def payments_summary(
+    start: Optional[date] = Query(None, description="Data inicial (paid_at)"),
+    end: Optional[date] = Query(None, description="Data final (paid_at)"),
+    db: Session = Depends(get_db),
+):
+    paid_query = db.query(Payment).filter(Payment.status == "pago")
+    if start:
+        paid_query = paid_query.filter(Payment.paid_at >= datetime.combine(start, time.min))
+    if end:
+        paid_query = paid_query.filter(Payment.paid_at <= datetime.combine(end, time.max))
+
+    paid = paid_query.all()
+    pending = db.query(Payment).filter(Payment.status == "pendente").all()
+
+    total_received = sum(float(p.amount) for p in paid)
+    total_pending = sum(float(p.amount) for p in pending)
+    return {
+        "total_received": round(total_received, 2),
+        "total_pending": round(total_pending, 2),
+        "count_paid": len(paid),
+        "count_pending": len(pending),
+    }
 
 
 @router.get("/by-appointment/{appointment_id}", response_model=PaymentResponse)

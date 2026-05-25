@@ -104,3 +104,26 @@ def test_remove_pagamento(client):
     pid = client.post("/api/payments/", json={"appointment_id": appt_id, "amount": 60.0}).json()["id"]
     assert client.delete(f"/api/payments/{pid}").status_code == 204
     assert client.get(f"/api/payments/{pid}").status_code == 404
+
+
+def test_resumo_financeiro(client):
+    # 1 pago de 100, 1 pendente de 40 (em consultas distintas)
+    a1 = _create_appointment(client)
+    client.post("/api/payments/", json={"appointment_id": a1, "amount": 100.0, "status": "pago"})
+
+    p2 = client.post("/api/patients/", json={
+        "name": "Joao Teste", "cpf": "11144477735",
+        "birth_date": "1985-05-05", "phone": "11988887777",
+    }).json()
+    a2 = client.post("/api/appointments/", json={
+        "patient_id": p2["id"], "scheduled_at": "2026-06-02T11:00:00", "duration_minutes": 30,
+    }).json()["id"]
+    client.post("/api/payments/", json={"appointment_id": a2, "amount": 40.0, "status": "pendente"})
+
+    resp = client.get("/api/payments/summary")
+    assert resp.status_code == 200, resp.text
+    s = resp.json()
+    assert s["total_received"] == 100.0
+    assert s["total_pending"] == 40.0
+    assert s["count_paid"] == 1
+    assert s["count_pending"] == 1

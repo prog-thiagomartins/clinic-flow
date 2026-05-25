@@ -83,3 +83,24 @@ def test_busca_por_consulta(client):
     resp = client.get(f"/api/payments/by-appointment/{appt_id}")
     assert resp.status_code == 200
     assert resp.json()["appointment_id"] == appt_id
+
+
+def test_marcar_como_pago_seta_data_automaticamente(client):
+    appt_id = _create_appointment(client)
+    created = client.post("/api/payments/", json={"appointment_id": appt_id, "amount": 120.0})
+    pid = created.json()["id"]
+    assert created.json()["paid_at"] is None
+
+    upd = client.put(f"/api/payments/{pid}", json={"status": "pago", "method": "dinheiro"})
+    assert upd.status_code == 200, upd.text
+    body = upd.json()
+    assert body["status"] == "pago"
+    assert body["paid_at"] is not None
+    assert body["method"] == "dinheiro"
+
+
+def test_remove_pagamento(client):
+    appt_id = _create_appointment(client)
+    pid = client.post("/api/payments/", json={"appointment_id": appt_id, "amount": 60.0}).json()["id"]
+    assert client.delete(f"/api/payments/{pid}").status_code == 204
+    assert client.get(f"/api/payments/{pid}").status_code == 404

@@ -87,3 +87,30 @@ def create_payment(payload: PaymentCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(payment)
     return _payment_with_relations(db, payment.id)
+
+
+@router.put("/{payment_id}", response_model=PaymentResponse)
+def update_payment(payment_id: int, payload: PaymentUpdate, db: Session = Depends(get_db)):
+    payment = db.query(Payment).filter(Payment.id == payment_id).first()
+    if not payment:
+        raise HTTPException(status_code=404, detail="Pagamento não encontrado")
+
+    for field, value in payload.model_dump(exclude_unset=True).items():
+        setattr(payment, field, value)
+
+    # Se virou "pago" e não há data registrada, marca agora
+    if payment.status == "pago" and payment.paid_at is None:
+        payment.paid_at = datetime.utcnow()
+
+    db.commit()
+    db.refresh(payment)
+    return _payment_with_relations(db, payment.id)
+
+
+@router.delete("/{payment_id}", status_code=204)
+def delete_payment(payment_id: int, db: Session = Depends(get_db)):
+    payment = db.query(Payment).filter(Payment.id == payment_id).first()
+    if not payment:
+        raise HTTPException(status_code=404, detail="Pagamento não encontrado")
+    db.delete(payment)
+    db.commit()

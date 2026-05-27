@@ -32,7 +32,7 @@ erDiagram
     }
     MEDICAL_RECORDS {
         int id PK
-        int appointment_id FK_UK
+        int appointment_id FK "UNIQUE 1:1"
         text chief_complaint
         text evolution
         varchar diagnosis
@@ -43,7 +43,7 @@ erDiagram
     }
     PAYMENTS {
         int id PK
-        int appointment_id FK_UK
+        int appointment_id FK "UNIQUE 1:1"
         numeric amount
         varchar status
         varchar method
@@ -59,5 +59,6 @@ erDiagram
 - Um **agendamento** tem zero ou um **prontuário** (1:1 — `appointment_id` único).
 - Um **agendamento** tem zero ou um **pagamento** (1:1 — `appointment_id` único).
 
-**Legenda:** PK = chave primária · FK = chave estrangeira · UK = única ·
-FK_UK = chave estrangeira com restrição de unicidade (garante o vínculo 1:1).
+**Legenda:** PK = chave primária · FK = chave estrangeira · UK = única.
+O `appointment_id` em `MEDICAL_RECORDS` e `PAYMENTS` é FK com restrição de
+unicidade (marcado como `UNIQUE 1:1`), o que garante o vínculo 1:1 com a consulta.

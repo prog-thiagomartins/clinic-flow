@@ -19,7 +19,7 @@ flowchart LR
       UC7(Editar / cancelar consulta)
     end
 
-    subgraph Prontuários
+    subgraph Prontuarios["Prontuários"]
       UC8(Registrar prontuário)
       UC9(Consultar histórico clínico)
     end

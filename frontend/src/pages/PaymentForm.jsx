@@ -97,7 +97,7 @@ export default function PaymentForm() {
       amount: Number(data.amount),
       status: data.status,
       method: data.method || null,
-      paid_at: data.paid_at ? new Date(data.paid_at).toISOString() : null,
+      paid_at: data.paid_at ? dayjs(data.paid_at).toISOString() : null,
       notes: data.notes || null,
     }
 

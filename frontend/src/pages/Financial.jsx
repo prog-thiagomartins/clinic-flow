@@ -96,6 +96,7 @@ export default function Financial() {
       </div>
 
       {/* Cards de resumo */}
+      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Resumo geral (todos os pacientes)</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <SummaryCard icon={TrendingUp} color="text-green-600"   bg="bg-green-50"   label="Recebido"             value={formatBRL(summary.total_received)} />
         <SummaryCard icon={Clock}      color="text-yellow-600"  bg="bg-yellow-50"  label="Pendente"             value={formatBRL(summary.total_pending)} />

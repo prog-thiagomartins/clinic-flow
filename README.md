@@ -33,7 +33,7 @@ Aguarde todos os serviços subirem. Depois acesse:
 | AC1     | Cadastro de Pacientes (CRUD)| ✅ Pronto |
 | AC2     | Agendamento de Consultas    | ✅ Pronto |
 | AC3     | Prontuário / Histórico      | ✅ Pronto |
-| Prova   | Financeiro / Pagamentos     | 🚧 Em breve |
+| Prova   | Financeiro / Pagamentos     | ✅ Pronto |
 
 ---
 
@@ -76,3 +76,23 @@ Aguarde todos os serviços subirem. Depois acesse:
 | DELETE | /api/medical-records/{id}                        | Remover prontuário                     |
 
 **Modelo:** cada prontuário é vinculado a uma consulta (relação 1:1). Campos clínicos: `chief_complaint` (queixa), `evolution`, `diagnosis` (hipótese), `treatment` (conduta), `prescription`. A queixa é obrigatória; os demais são opcionais.
+
+### Prova — Financeiro
+
+| Método | Rota                                   | Descrição                                   |
+|--------|----------------------------------------|---------------------------------------------|
+| GET    | /api/payments/                         | Listar pagamentos (filtros `?status=`, `?patient_id=`) |
+| GET    | /api/payments/summary                  | Resumo: recebido, pendente e contagens (`?start=`, `?end=`) |
+| GET    | /api/payments/{id}                     | Buscar pagamento por ID                     |
+| GET    | /api/payments/by-appointment/{id}      | Buscar pagamento pela consulta              |
+| POST   | /api/payments/                         | Criar pagamento (1 por consulta)            |
+| PUT    | /api/payments/{id}                     | Atualizar pagamento                         |
+| DELETE | /api/payments/{id}                     | Remover pagamento                           |
+
+**Modelo:** cada pagamento é vinculado a uma consulta (relação 1:1). Campos:
+`amount` (valor > 0), `status` (`pendente`/`pago`/`cancelado`), `method`
+(forma de pagamento), `paid_at` (preenchido automaticamente ao marcar como
+`pago`, se não informado) e `notes`.
+
+**Diagramas:** ver `docs/diagrama-classes.md`, `docs/diagrama-casos-de-uso.md`
+e `docs/modelo-mer.md`.

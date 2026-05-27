@@ -5,7 +5,7 @@ const navItems = [
   { to: '/patients', icon: Users,    label: 'Pacientes' },
   { to: '/appointments', icon: Calendar,  label: 'Agendamentos' },
   { to: '/records',   icon: FileText,  label: 'Prontuários' },
-  { to: '/financial', icon: DollarSign, label: 'Financeiro',   soon: true },
+  { to: '/financial', icon: DollarSign, label: 'Financeiro' },
 ]
 
 export default function Sidebar() {
@@ -51,7 +51,7 @@ export default function Sidebar() {
       </nav>
 
       <div className="p-4 border-t border-gray-100">
-        <p className="text-xs text-gray-400 text-center">ClinicFlow v1.2 — AC3</p>
+        <p className="text-xs text-gray-400 text-center">ClinicFlow v2.0 — Prova</p>
       </div>
     </aside>
   )

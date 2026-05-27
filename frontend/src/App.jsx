@@ -7,6 +7,8 @@ import Appointments from './pages/Appointments'
 import AppointmentForm from './pages/AppointmentForm'
 import Records from './pages/Records'
 import RecordForm from './pages/RecordForm'
+import Financial from './pages/Financial'
+import PaymentForm from './pages/PaymentForm'
 
 export default function App() {
   return (
@@ -26,23 +28,12 @@ export default function App() {
             <Route path="/records" element={<Records />} />
             <Route path="/records/new" element={<RecordForm />} />
             <Route path="/records/:id/edit" element={<RecordForm />} />
-            {/* Rotas futuras (Prova) */}
-            <Route path="/financial"    element={<ComingSoon title="Financeiro" />} />
+            <Route path="/financial" element={<Financial />} />
+            <Route path="/financial/new" element={<PaymentForm />} />
+            <Route path="/financial/:id/edit" element={<PaymentForm />} />
           </Routes>
         </main>
       </div>
     </BrowserRouter>
-  )
-}
-
-function ComingSoon({ title }) {
-  return (
-    <div className="flex-1 flex items-center justify-center text-center">
-      <div>
-        <p className="text-5xl mb-4">🚧</p>
-        <h2 className="text-xl font-bold text-gray-700">{title}</h2>
-        <p className="text-gray-400 mt-2 text-sm">Funcionalidade em desenvolvimento — Prova</p>
-      </div>
-    </div>
   )
 }

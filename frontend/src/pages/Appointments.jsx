@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Pencil, Trash2, Calendar, Clock, User, ChevronLeft, ChevronRight, FileText } from 'lucide-react'
+import { Plus, Pencil, Trash2, Calendar, Clock, User, ChevronLeft, ChevronRight, FileText, DollarSign } from 'lucide-react'
 import { getAppointments, deleteAppointment } from '../services/api'
 import toast from 'react-hot-toast'
 import dayjs from 'dayjs'
@@ -177,6 +177,13 @@ export default function Appointments() {
 
                 {/* Ações */}
                 <div className="flex items-center gap-1 flex-shrink-0">
+                  <Link
+                    to={`/financial/new?appointment_id=${a.id}`}
+                    className="p-2 rounded-lg hover:bg-emerald-50 text-gray-400 hover:text-emerald-600 transition-colors"
+                    title="Pagamento"
+                  >
+                    <DollarSign className="w-4 h-4" />
+                  </Link>
                   <Link
                     to={`/records/new?appointment_id=${a.id}`}
                     className="p-2 rounded-lg hover:bg-emerald-50 text-gray-400 hover:text-emerald-600 transition-colors"

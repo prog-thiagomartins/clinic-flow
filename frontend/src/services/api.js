@@ -59,4 +59,26 @@ export const updateMedicalRecord = (id, data) =>
 export const deleteMedicalRecord = (id) =>
   api.delete(`/medical-records/${id}`)
 
+// ── Financeiro ─────────────────────────────────────────
+export const getPayments = (filters = {}) =>
+  api.get('/payments/', { params: filters })
+
+export const getPayment = (id) =>
+  api.get(`/payments/${id}`)
+
+export const getPaymentByAppointment = (appointmentId) =>
+  api.get(`/payments/by-appointment/${appointmentId}`)
+
+export const getPaymentSummary = (filters = {}) =>
+  api.get('/payments/summary', { params: filters })
+
+export const createPayment = (data) =>
+  api.post('/payments/', data)
+
+export const updatePayment = (id, data) =>
+  api.put(`/payments/${id}`, data)
+
+export const deletePayment = (id) =>
+  api.delete(`/payments/${id}`)
+
 export default api

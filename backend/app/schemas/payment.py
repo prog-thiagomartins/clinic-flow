@@ -67,3 +67,10 @@ class PaymentResponse(PaymentBase):
     appointment: Optional[AppointmentMini] = None
 
     model_config = {"from_attributes": True}
+
+
+class PaymentSummaryResponse(BaseModel):
+    total_received: float
+    total_pending: float
+    count_paid: int
+    count_pending: int

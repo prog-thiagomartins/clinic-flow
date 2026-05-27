@@ -5,7 +5,7 @@ from datetime import datetime, date, time
 from app.database import get_db
 from app.models.payment import Payment
 from app.models.appointment import Appointment
-from app.schemas.payment import PaymentCreate, PaymentUpdate, PaymentResponse
+from app.schemas.payment import PaymentCreate, PaymentUpdate, PaymentResponse, PaymentSummaryResponse
 
 router = APIRouter(prefix="/payments", tags=["Financeiro"])
 
@@ -44,7 +44,7 @@ def list_payments(
     )
 
 
-@router.get("/summary")
+@router.get("/summary", response_model=PaymentSummaryResponse)
 def payments_summary(
     start: Optional[date] = Query(None, description="Data inicial (paid_at)"),
     end: Optional[date] = Query(None, description="Data final (paid_at)"),
